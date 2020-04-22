@@ -14,7 +14,7 @@ plt.title("Histogram of Friend Counts")
 plt.xlabel("# of friends")
 plt.ylabel("# of people")
 
-#plt.show()
+plt.show()
 
 num_points = len(num_friends)
 assert num_points == 204
