@@ -6,7 +6,7 @@ def normal_cdf(x: float, mu: float = 0, sigma: float = 1) -> float:
     """Normal cumulative distribution function (PDF)"""
     return (1 + math.erf((x -mu) / math.sqrt(2) / sigma)) / 2
 
-def inverse_normal_cdf(p:float, mu:float=0, sigma:float=1, tolerance:float=0.00001) -> float:
+def inverse_normal_cdf(p: float, mu: float=0, sigma: float=1, tolerance: float=0.00001) -> float:
     """Find approximate inverse using binary search"""
     # If not standart, compute standard and rescale
     if mu != 0 or sigma != 1:

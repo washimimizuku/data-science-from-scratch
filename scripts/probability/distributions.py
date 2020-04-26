@@ -1,11 +1,11 @@
 import math
 import matplotlib.pyplot as plt
 
-def uniform_pdf(x:float) -> float:
+def uniform_pdf(x: float) -> float:
     """Uniform probability density function (PDF)"""
     return 1 if 0 <= x < 1 else 0
 
-def uniform_cdf(x:float) -> float:
+def uniform_cdf(x: float) -> float:
     """Uniform cumulative distribution function (CDF)"""
     """Returns the probability that a uniform random variable is <= x"""
     if x < 0:
@@ -17,7 +17,7 @@ def uniform_cdf(x:float) -> float:
 
 SQRT_TWO_PI = math.sqrt(2 * math.pi)
 
-def normal_pdf(x:float, mu:float=0, sigma:float=1) -> float:
+def normal_pdf(x: float, mu: float=0, sigma: float=1) -> float:
     """Normal probability density function (PDF)"""
     return (math.exp(-(x-mu) ** 2 / 2 / sigma ** 2) / (SQRT_TWO_PI * sigma))
 
@@ -32,7 +32,7 @@ plt.legend()
 plt.title("Various Normal pdfs")
 plt.show()
 
-def normal_cdf(x:float, mu:float=0, sigma:float=1) -> float:
+def normal_cdf(x: float, mu: float=0, sigma: float=1) -> float:
     """Normal cumulative distribution function (PDF)"""
     return (1 + math.erf((x -mu) / math.sqrt(2) / sigma)) / 2
 
@@ -47,7 +47,7 @@ plt.legend(loc=4) # bottom right
 plt.title("Various Normal cdfs")
 plt.show()
 
-def inverse_normal_cdf(p:float, mu:float=0, sigma:float=1, tolerance:float=0.00001) -> float:
+def inverse_normal_cdf(p: float, mu: float=0, sigma: float=1, tolerance: float=0.00001) -> float:
     """Find approximate inverse using binary search"""
     # If not standart, compute standard and rescale
     if mu != 0 or sigma != 1:

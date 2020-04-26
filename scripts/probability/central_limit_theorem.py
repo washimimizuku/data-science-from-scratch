@@ -3,19 +3,19 @@ import math
 from collections import Counter
 import matplotlib.pyplot as plt
 
-def normal_cdf(x:float, mu:float=0, sigma:float=1) -> float:
+def normal_cdf(x: float, mu: float=0, sigma: float=1) -> float:
     """Normal cumulative distribution function (PDF)"""
     return (1 + math.erf((x -mu) / math.sqrt(2) / sigma)) / 2
 
-def bernoulli_trial(p:float) -> int:
+def bernoulli_trial(p: float) -> int:
     """Returns 1 with probability p and 0 with probability 1-p"""
     return 1 if random.random() < p else 0
 
-def binomial(n:int, p:float) -> int:
+def binomial(n: int, p: float) -> int:
     """Returns the sum of n bernoulli(p) trials"""
     return sum(bernoulli_trial(p) for _ in range(n))
 
-def binomial_histogram(p:float, n:int, num_points:int) -> None:
+def binomial_histogram(p: float, n: int, num_points: int) -> None:
     """Picks points from a Binomial(n, p) and plots their histogram"""
     data = [binomial(n, p) for _ in range(num_points)]
 

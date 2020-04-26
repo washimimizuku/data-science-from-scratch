@@ -9,29 +9,29 @@ daily_hours = [dm / 60 for dm in daily_minutes]
 
 Vector = List[float]
 
-def dot(v:Vector, w:Vector) -> float:
+def dot(v: Vector, w: Vector) -> float:
     """Computes v_1 * w_1 + ... + v_n * w_n"""
     assert len(v) == len(w), "vectors must be same length"
 
     return sum(v_i * w_i for v_i, w_i in zip(v, w))
 
-def sum_of_squares(v:Vector) -> float:
+def sum_of_squares(v: Vector) -> float:
     """Returns v_1 * v_1 + ... + v_n * v_n"""
     return dot(v, v)
 
-def de_mean(xs:List[float]) -> List[float]:
+def de_mean(xs: List[float]) -> List[float]:
     """Translate xs by sutracting its mean (so the result has mean 0"""
     x_bar = mean(xs)
     return [x - x_bar for x in xs]
 
-def covariance(xs:List[float], ys:List[float]) -> float:
+def covariance(xs: List[float], ys: List[float]) -> float:
     assert len(xs) == len(ys), "xs and ys must have same number of elements"
     return dot(de_mean(xs), de_mean(ys)) / (len(xs) - 1)
 
 assert 22.42 < covariance(num_friends, daily_minutes) < 22.43
 assert 22.42 / 60 < covariance(num_friends, daily_hours) < 22.43 / 60
 
-def variance(xs:List[float]) -> float:
+def variance(xs: List[float]) -> float:
     """Almost the average squared deviation from the mean"""
     assert len(xs) >= 2, "variance requires at least two elements"
 
@@ -39,11 +39,11 @@ def variance(xs:List[float]) -> float:
     deviations = de_mean(xs)
     return sum_of_squares(deviations) / (n - 1)
 
-def standard_deviation(xs:List[float]) -> float:
+def standard_deviation(xs: List[float]) -> float:
     """The standard deviation is the square root of the variance"""
     return math.sqrt(variance(xs))
 
-def correlation(xs:List[float], ys:List[float]) -> float:
+def correlation(xs: List[float], ys: List[float]) -> float:
     """Measures how much xs and ys vary in tandem about their means"""
     stdev_x = standard_deviation(xs)
     stdev_y = standard_deviation(ys)

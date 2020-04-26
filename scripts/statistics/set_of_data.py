@@ -35,7 +35,7 @@ assert smallest_value == 1
 assert second_smallest_value == 1
 assert second_largest_value == 49
 
-def mean(xs:List[float]) -> float:
+def mean(xs: List[float]) -> float:
     return sum(xs) / len(xs)
 
 assert 7.3333 < mean(num_friends) < 7.3334
@@ -45,17 +45,17 @@ print(mean(num_friends)) # 7.333333333333333
 # The underscores indicate that these are "private" functions, as they're
 # intended to be called by our median function but not by other people
 # using our statistics library.
-def _median_odd(xs:List[float]) -> float:
+def _median_odd(xs: List[float]) -> float:
     """If len(xs) is odd, the median is the middle element"""
     return sorted(xs)[len(xs) // 2]
 
-def _median_even(xs:List[float]) -> float:
+def _median_even(xs: List[float]) -> float:
     """If len(xs) is even, it's the average of the middle two elements"""
     sorted_xs = sorted(xs)
     hi_midpoint = len(xs) // 2 # e.g. length 4 => hi_midpoint 2
     return (sorted_xs[hi_midpoint - 1] + sorted_xs[hi_midpoint]) / 2
 
-def median(v:List[float]) -> float:
+def median(v: List[float]) -> float:
     """Finds the 'middle-most' value of v"""
     return _median_even(v) if len(v) %2 == 0 else _median_odd(v)
 
@@ -64,7 +64,7 @@ assert median([1, 9, 2, 10]) == (2 + 9) / 2
 
 print(median(num_friends)) # 6
 
-def quantile(xs:List[float], p:float) -> float:
+def quantile(xs: List[float], p: float) -> float:
     """Returns the pth-percentile value in x"""
     p_index = int(p * len(xs))
     return sorted(xs)[p_index]
@@ -74,7 +74,7 @@ assert quantile(num_friends, 0.25) == 3
 assert quantile(num_friends, 0.75) == 9
 assert quantile(num_friends, 0.90) == 13
 
-def mode(x:List[float]) -> List[float]:
+def mode(x: List[float]) -> List[float]:
     """Returns a list, since there might be more than one mode"""
     counts = Counter(x)
     max_count = max(counts.values())
