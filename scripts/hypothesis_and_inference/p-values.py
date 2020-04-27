@@ -7,6 +7,24 @@ def normal_cdf(x: float, mu: float = 0, sigma: float = 1) -> float:
     """Normal cumulative distribution function (PDF)"""
     return (1 + math.erf((x -mu) / math.sqrt(2) / sigma)) / 2
 
+def inverse_normal_cdf(p: float, mu: float=0, sigma: float=1, tolerance: float=0.00001) -> float:
+    """Find approximate inverse using binary search"""
+    # If not standart, compute standard and rescale
+    if mu != 0 or sigma != 1:
+        return mu + sigma * inverse_normal_cdf(p, tolerance=tolerance)
+
+    low_z = -10.0                      # normal_cdf(-10) is (very close to) 0
+    hi_z  =  10.0                      # normal_cdf(10)  is (very close to) 1
+    while hi_z - low_z > tolerance:
+        mid_z = (low_z + hi_z) / 2     # Consider the midpoint
+        mid_p = normal_cdf(mid_z)      # and the cdf's value there
+        if mid_p < p:
+            low_z = mid_z              # Midpoint too low, search above it
+        else:
+            hi_z = mid_z               # Midpoint too high, search below it
+
+    return mid_z
+
 # The normal cdf _is_ the probability the variable is bellow a threshold
 normal_probability_below = normal_cdf
 
@@ -20,6 +38,29 @@ def normal_approximation_to_binomial(n: int, p: float) -> Tuple[float, float]:
     mu = p * n
     sigma = math.sqrt(p * (1 - p) * n)
     return mu, sigma
+
+def normal_upper_bound(probability: float, mu: float = 0, sigma: float = 1) -> float:
+    """Returns the z for which P(Z <= z) = probability"""
+    return inverse_normal_cdf(probability, mu, sigma)
+
+def normal_lower_bound(probability: float, mu: float = 0, sigma: float = 1) -> float:
+    """Returns the z for which P(Z <= z) = probability"""
+    return inverse_normal_cdf(1 - probability, mu, sigma)
+
+def normal_two_sided_bounds(probability: float, mu: float = 0, sigma: float = 1) -> Tuple[float, float]:
+    """
+    Returns the symmetric (about the mean) bounds
+    that contain the specified probability
+    """
+    tail_probability = (1 - probability) / 2
+
+    # Upper bound should have tail_probability above it
+    upper_bound = normal_lower_bound(tail_probability, mu, sigma)
+
+    # Lower bound should have tail_probability below it
+    lower_bound = normal_upper_bound(tail_probability, mu, sigma)
+
+    return lower_bound, upper_bound
 # End previously done functions
 
 ################################################
@@ -66,3 +107,21 @@ assert 0.060 < upper_1 < 0.062
 
 upper_2 = upper_p_value(526.5, mu_0, sigma_0) # 0.047
 assert 0.046 < upper_2 < 0.048
+
+p_hat = 525 / 1000
+mu = p_hat
+sigma = math.sqrt(p_hat * (1 - p_hat) / 1000) # 0.0158
+assert 0.0157 < sigma < 0.0159
+
+two_sided_bounds = normal_two_sided_bounds(0.95, mu, sigma) # [0.4940, 0.5560]
+assert 0.4939 < two_sided_bounds[0] < 0.4941
+assert 0.5559 < two_sided_bounds[1] < 0.5561
+
+p_hat = 540 / 1000
+mu = p_hat
+sigma = math.sqrt(p_hat * (1 - p_hat) / 1000) # 0.0158
+assert 0.0157 < sigma < 0.0159
+
+two_sided_bounds = normal_two_sided_bounds(0.95, mu, sigma) # [0.5091, 0.5709]
+assert 0.5090 < two_sided_bounds[0] < 0.5092
+assert 0.5708 < two_sided_bounds[1] < 0.5710
