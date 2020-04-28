@@ -8,6 +8,9 @@ pylint = "*"
 
 [packages]
 matplotlib = "*"
+beautifulsoup4 = "*"
+requests = "*"
+html5lib = "*"
 
 [requires]
 python_version = "3.7"
