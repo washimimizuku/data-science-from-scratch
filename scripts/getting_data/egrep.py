@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import sys, re
 
 # sys.argv is the list of command-line arguments
