@@ -1,3 +1,5 @@
 {
-    "python.pythonPath": "/Users/nuno/.local/share/virtualenvs/data-science-tutorials-VQurKELa/bin/python"
+    "python.pythonPath": "/Users/nbarr/.local/share/virtualenvs/data-science-tutorials-5hX5Tr8x/bin/python",
+    "python.linting.pylintEnabled": true,
+    "python.linting.enabled": true
 }

@@ -47,13 +47,16 @@ def plot_histogram(points: List[float], bucket_size: float, title: str = ""):
     plt.title(title)
     plt.show()
 
-random.seed(0)
+def main():
+    random.seed(0)
 
-# Uniform between -100 and 100
-uniform = [200 * random.random() - 100 for _ in range(10000)]
+    # Uniform between -100 and 100
+    uniform = [200 * random.random() - 100 for _ in range(10000)]
 
-# Normal distribution with mean 0, standard deviation 57
-normal = [57 * inverse_normal_cdf(random.random()) for _ in range(10000)]
+    # Normal distribution with mean 0, standard deviation 57
+    normal = [57 * inverse_normal_cdf(random.random()) for _ in range(10000)]
 
-plot_histogram(uniform, 10, "Uniform Histogram")
-plot_histogram(normal, 10, "Normal Histogram")
+    plot_histogram(uniform, 10, "Uniform Histogram")
+    plot_histogram(normal, 10, "Normal Histogram")
+
+if __name__ == "__main__": main()
